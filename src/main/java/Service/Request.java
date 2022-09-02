@@ -5,37 +5,45 @@ import Model.CustomerInformation;
 import Model.WarrantyInformation;
 
 import java.math.BigInteger;
+import java.util.List;
 
 public class Request {
     RequestRepo rr;
     Status s;
 
-    public Request(){
+    public Request() {
         rr = new RequestRepo();
         s = new Status();
-    };
+    }
 
-    public void addCustomerInformation (String name, String email, int phone){
+    ;
+
+    public void addCustomerInformation(String name, String email, int phone) {
         CustomerInformation exisitingInformation = rr.getCustomerByEmail(email);
-        if(exisitingInformation == null){
-            CustomerInformation newCustomerInformation = new CustomerInformation(name,email,phone);
+        if (exisitingInformation == null) {
+            CustomerInformation newCustomerInformation = new CustomerInformation(name, email, phone);
             rr.addCustomerInformation(newCustomerInformation);
         } else {
 
             //do nothing
         }
     }
-//now ADD brand
-    public void addWarrantyInformation (int customerID,int brandID,String productType, String productIssue){
+
+    //now ADD brand
+    public void addWarrantyInformation(int customerID, int brandID, String productType, String productIssue) {
         WarrantyInformation existingInformation = rr.getWarrantyByCustomerID(customerID);
-        if(existingInformation == null){
+        if (existingInformation == null) {
             WarrantyInformation newWarrantyInformation = new WarrantyInformation(customerID, brandID, productType,
                     productIssue);
             rr.addWarrantyInformation(newWarrantyInformation);
-        } else{
+        } else {
             //do nothing
         }
     }
 
-
+//    public List<WarrantyInformation> getAllWarrantyInfoByWarrantyNo(int warrantyNo) {
+//
+//        return rr.getAllWarrantyInfoByWarrantyNo(warrantyNo);
+//
+//    }
 }

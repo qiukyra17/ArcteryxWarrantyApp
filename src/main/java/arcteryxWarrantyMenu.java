@@ -1,8 +1,11 @@
+import DAO.CancelRepo;
+import DAO.StatusRepo;
+import Service.Cancel;
 import Service.Request;
 import Service.Status;
 
 import java.io.FileNotFoundException;
-import java.math.BigInteger;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class arcteryxWarrantyMenu {
@@ -22,15 +25,15 @@ public class arcteryxWarrantyMenu {
 
         boolean usingApp = true;
         Request r = new Request();
-        Status s = new Status();
+        StatusRepo sr = new StatusRepo();
+        CancelRepo cr = new CancelRepo();
         while (usingApp) {
             Scanner input = new Scanner(System.in);
             System.out.println("Select Option for Warranty: Request - Status - Cancel - Exit");
             String userInput = input.nextLine();
             if (userInput.equals("Exit")) {
                 usingApp = false;
-            }
-            else if (userInput.equals("Request")) {
+            } else if (userInput.equals("Request")) {
                 //ADD - new request - ContactInfo - Brand - ProductInfo
                 //All input should INSERT into your TABLE
                 System.out.println("Please provide contact information: Name");
@@ -38,31 +41,33 @@ public class arcteryxWarrantyMenu {
                 System.out.println("Please provide contact information: Email");
                 String email = input.nextLine();
                 System.out.println("Please provide contact information: Phone");
-                int phone = Integer.parseInt(input.nextLine());
-                r.addCustomerInformation(name,email, phone);
+                int phone = input.nextInt();
+                r.addCustomerInformation(name, email, phone);
                 // could we add something to tell the user this is your customerID
                 System.out.println("Please type enter the number corresponding to the brand: 1:Arcteryx - 2:Veilance " +
                         "- " +
                         "3:System_A");
-                int brandID = Integer.parseInt(input.nextLine());
+                int brandID = input.nextInt();
                 System.out.println("Please provide your: Customer ID");
-                int customerID = Integer.parseInt(input.nextLine());
+                int customerID = input.nextInt();
                 System.out.println("What type of product is it? Example: Jacket");
                 String productType = input.nextLine();
                 System.out.println("What is the issue? Example: Hem of Jacket is starting to delaminate");
                 String productIssue = input.nextLine();
 
-                r.addWarrantyInformation(customerID,brandID,productType,productIssue);
+                r.addWarrantyInformation(customerID, brandID, productType, productIssue);
                 //see if SQL output aa unique identifier for the user
-            }
-            else if (userInput.equals("Status")) {
+            } else if (userInput.equals("Status")) {
                 //Look up status through the unique identifier OR through email
                 System.out.println("Please Type in WarrantyNo ");
-                String warrantyNo = input.nextLine();
-//                System.out.println(s.getStatus(warrantyNo));
-            }
-            else if (userInput.equals("Cancel")) {
+                int warrantyNo = input.nextInt();
+                System.out.println(sr.getAllWarrantyInfoByWarrantyNo(warrantyNo));
+//                System.out.println(r.getAllWarrantyInfoByWarrantyNo(warrantyNo));
+            } else if (userInput.equals("Cancel")) {
                 //Look up status through the unique identifier OR through email AND DELETE IT
+                System.out.println("Please enter Warranty Number");
+                int warrantyNo = input.nextInt();
+                cr.deleteWarrantyRequestByWarrantyNo(warrantyNo);
             }
 
         }
