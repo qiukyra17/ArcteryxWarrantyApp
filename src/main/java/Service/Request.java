@@ -2,6 +2,9 @@ package Service;
 
 import DAO.RequestRepo;
 import Model.CustomerInformation;
+import Model.WarrantyInformation;
+
+import java.math.BigInteger;
 
 public class Request {
     RequestRepo rr;
@@ -19,6 +22,17 @@ public class Request {
             rr.addCustomerInformation(newCustomerInformation);
         } else {
 
+            //do nothing
+        }
+    }
+//now ADD brand
+    public void addWarrantyInformation (int customerID,int brandID,String productType, String productIssue){
+        WarrantyInformation existingInformation = rr.getWarrantyByCustomerID(customerID);
+        if(existingInformation == null){
+            WarrantyInformation newWarrantyInformation = new WarrantyInformation(customerID, brandID, productType,
+                    productIssue);
+            rr.addWarrantyInformation(newWarrantyInformation);
+        } else{
             //do nothing
         }
     }

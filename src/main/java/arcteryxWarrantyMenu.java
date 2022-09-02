@@ -1,6 +1,8 @@
 import Service.Request;
+import Service.Status;
 
 import java.io.FileNotFoundException;
+import java.math.BigInteger;
 import java.util.Scanner;
 
 public class arcteryxWarrantyMenu {
@@ -20,6 +22,7 @@ public class arcteryxWarrantyMenu {
 
         boolean usingApp = true;
         Request r = new Request();
+        Status s = new Status();
         while (usingApp) {
             Scanner input = new Scanner(System.in);
             System.out.println("Select Option for Warranty: Request - Status - Cancel - Exit");
@@ -36,18 +39,27 @@ public class arcteryxWarrantyMenu {
                 String email = input.nextLine();
                 System.out.println("Please provide contact information: Phone");
                 int phone = Integer.parseInt(input.nextLine());
-                r.addCustomerInformation(name,email,phone);
-
-                System.out.println("Please pick Brand: Arcteryx - Veilance - System_A");
-                String brand = input.nextLine();
-                System.out.println("Please provide: Product Type - Production Year - Issue");
+                r.addCustomerInformation(name,email, phone);
+                // could we add something to tell the user this is your customerID
+                System.out.println("Please type enter the number corresponding to the brand: 1:Arcteryx - 2:Veilance " +
+                        "- " +
+                        "3:System_A");
+                int brandID = Integer.parseInt(input.nextLine());
+                System.out.println("Please provide your: Customer ID");
+                int customerID = Integer.parseInt(input.nextLine());
+                System.out.println("What type of product is it? Example: Jacket");
+                String productType = input.nextLine();
+                System.out.println("What is the issue? Example: Hem of Jacket is starting to delaminate");
                 String productIssue = input.nextLine();
+
+                r.addWarrantyInformation(customerID,brandID,productType,productIssue);
                 //see if SQL output aa unique identifier for the user
             }
             else if (userInput.equals("Status")) {
                 //Look up status through the unique identifier OR through email
-                System.out.println("Please Type in ");
-                String customerName = input.nextLine();
+                System.out.println("Please Type in WarrantyNo ");
+                String warrantyNo = input.nextLine();
+//                System.out.println(s.getStatus(warrantyNo));
             }
             else if (userInput.equals("Cancel")) {
                 //Look up status through the unique identifier OR through email AND DELETE IT

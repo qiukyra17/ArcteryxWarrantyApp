@@ -1,5 +1,8 @@
 package Model;
 
+
+import java.math.BigInteger;
+
 public class CustomerInformation {
     public String name;
     public String email;
