@@ -15,12 +15,17 @@ public class arcteryxWarrantyMenu {
 
     //Before presenting menu, there will be a Welcome bit
     public static void main(String[] args) throws FileNotFoundException {
-        ReadFile rf = new ReadFile("C:\\Users\\kywahhhhhhh\\IdeaProjects\\arcteryxWarrantyApp\\src\\main\\resources" +
-                "\\Welcome");
-        while (rf.fileHasText()) {
-            System.out.println(rf.readNextLine());
-        }
+//        ReadFile rf = new ReadFile("C:\\Users\\kywahhhhhhh\\IdeaProjects\\arcteryxWarrantyApp\\src\\main\\resources" +
+//                "\\Welcome");
+//        while (rf.fileHasText()) {
+//            System.out.println(rf.readNextLine());
+//        }
+        
+        //lets try to clean things up a bit
 
+        ReadFile rf = new ReadFile("src/main/resources/Welcome");
+        rf.ReadFiletoMenu();
+        
         //need boolean to be sure the user wants to use or exit
 
         boolean usingApp = true;
@@ -51,11 +56,12 @@ public class arcteryxWarrantyMenu {
                 System.out.println("Please provide your: Customer ID");
                 int customerID = input.nextInt();
                 System.out.println("What type of product is it? Example: Jacket");
+                input = new Scanner(System.in);
                 String productType = input.nextLine();
                 System.out.println("What is the issue? Example: Hem of Jacket is starting to delaminate");
                 String productIssue = input.nextLine();
 
-                r.addWarrantyInformation(customerID, brandID, productType, productIssue);
+                r.addWarrantyInformation(customerID, brandID, productType, productIssue, "New");
                 //see if SQL output aa unique identifier for the user
             } else if (userInput.equals("Status")) {
                 //Look up status through the unique identifier OR through email

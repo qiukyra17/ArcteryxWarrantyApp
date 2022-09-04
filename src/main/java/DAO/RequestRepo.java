@@ -52,12 +52,12 @@ public class RequestRepo {
     public void addWarrantyInformation(WarrantyInformation wi) {
         try {
             PreparedStatement statement =
-                    conn.prepareStatement("insert into WarrantyInformation (insert into WarrantyInformation " +
-                            "(customerID, brandID, productType, productIssue)values(?,?,?,?)");
+                    conn.prepareStatement("insert into warrantyinformation (customerID,brandID,productType,productIssue,status) values (?,?,?,?,?)");
             statement.setInt(1, wi.customerID);
             statement.setInt(2, wi.brandID);
             statement.setString(3, wi.productType);
             statement.setString(4, wi.productIssue);
+            statement.setString(5, wi.status);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,7 +73,7 @@ public class RequestRepo {
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 WarrantyInformation wi = new WarrantyInformation(rs.getInt("customerID"),rs.getInt("brandID"),
-                        rs.getString("productType"),rs.getString("productIssue"));
+                        rs.getString("productType"),rs.getString("productIssue"),rs.getString("status"));
                 return wi;
             }
         } catch (SQLException e) {

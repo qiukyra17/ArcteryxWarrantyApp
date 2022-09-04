@@ -38,7 +38,8 @@ public List<WarrantyInformation> getAllWarrantyInfoByWarrantyNo(int warrantyNo) 
         statement.setInt(1,warrantyNo);
         ResultSet rs = statement.executeQuery();
         while(rs.next()){
-            WarrantyInformation loadWarranty = new WarrantyInformation(rs.getInt("customerID"),rs.getInt("brandID"),rs.getString("productType"),rs.getString("productIssue"));
+            WarrantyInformation loadWarranty = new WarrantyInformation(rs.getInt("customerID"),rs.getInt("brandID"),
+                    rs.getString("productType"),rs.getString("productIssue"), rs.getString("status"));
             WarrantyInfo.add(loadWarranty);
         }
     } catch (SQLException e){

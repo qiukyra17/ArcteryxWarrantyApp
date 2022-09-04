@@ -19,4 +19,11 @@ public class ReadFile {
         boolean hasText = textScanner.hasNext();
         return hasText;
     }
+    public void ReadFiletoMenu() throws FileNotFoundException {
+//        ReadFile rf = new ReadFile("C:\\Users\\kywahhhhhhh\\IdeaProjects\\arcteryxWarrantyApp\\src\\main\\resources" +
+//                "\\Welcome");
+        while (fileHasText()) {
+            System.out.println(readNextLine());
+    }
+}
 }

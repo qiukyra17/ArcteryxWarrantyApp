@@ -4,9 +4,6 @@ import DAO.RequestRepo;
 import Model.CustomerInformation;
 import Model.WarrantyInformation;
 
-import java.math.BigInteger;
-import java.util.List;
-
 public class Request {
     RequestRepo rr;
     Status s;
@@ -30,11 +27,12 @@ public class Request {
     }
 
     //now ADD brand
-    public void addWarrantyInformation(int customerID, int brandID, String productType, String productIssue) {
+    public void addWarrantyInformation(int customerID, int brandID, String productType, String productIssue,
+                                       String status) {
         WarrantyInformation existingInformation = rr.getWarrantyByCustomerID(customerID);
         if (existingInformation == null) {
             WarrantyInformation newWarrantyInformation = new WarrantyInformation(customerID, brandID, productType,
-                    productIssue);
+                    productIssue,status);
             rr.addWarrantyInformation(newWarrantyInformation);
         } else {
             //do nothing

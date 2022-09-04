@@ -7,11 +7,14 @@ public class WarrantyInformation {
     public String productType;
     public String productIssue;
 
-    public WarrantyInformation(int customerID, int brandID, String productType, String productIssue) {
+    public String status;
+
+    public WarrantyInformation(int customerID, int brandID, String productType, String productIssue, String status) {
         this.customerID = customerID;
         this.brandID = brandID;
         this.productType = productType;
         this.productIssue = productIssue;
+        this.status = status;
     }
 
     @Override
@@ -21,6 +24,7 @@ public class WarrantyInformation {
                 ", brandID=" + brandID +
                 ", productType='" + productType + '\'' +
                 ", productIssue='" + productIssue + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 
@@ -54,6 +58,14 @@ public class WarrantyInformation {
 
     public void setProductIssue(String productIssue) {
         this.productIssue = productIssue;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
 
