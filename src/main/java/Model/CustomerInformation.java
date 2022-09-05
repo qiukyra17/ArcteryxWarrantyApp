@@ -1,14 +1,12 @@
 package Model;
 
 
-import java.math.BigInteger;
-
 public class CustomerInformation {
     public String name;
     public String email;
-    public int phone;
+    public String phone;
 
-    public CustomerInformation(String name, String email, int phone) {
+    public CustomerInformation(String name, String email, String phone) {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -39,12 +37,13 @@ public class CustomerInformation {
         this.email = email;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 }
+
 

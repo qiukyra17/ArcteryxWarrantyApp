@@ -5,6 +5,7 @@ import Service.Request;
 import Service.Status;
 
 import java.io.FileNotFoundException;
+import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -13,25 +14,17 @@ public class arcteryxWarrantyMenu {
     In this app users will be able to request, check status, and/or cancel their request
      */
 
-    //Before presenting menu, there will be a Welcome bit
     public static void main(String[] args) throws FileNotFoundException {
-//        ReadFile rf = new ReadFile("C:\\Users\\kywahhhhhhh\\IdeaProjects\\arcteryxWarrantyApp\\src\\main\\resources" +
-//                "\\Welcome");
-//        while (rf.fileHasText()) {
-//            System.out.println(rf.readNextLine());
-//        }
-        
-        //lets try to clean things up a bit
 
         ReadFile rf = new ReadFile("src/main/resources/Welcome");
         rf.ReadFiletoMenu();
         
         //need boolean to be sure the user wants to use or exit
-
-        boolean usingApp = true;
         Request r = new Request();
         StatusRepo sr = new StatusRepo();
         CancelRepo cr = new CancelRepo();
+
+        boolean usingApp = true;
         while (usingApp) {
             Scanner input = new Scanner(System.in);
             System.out.println("Select Option for Warranty: Request - Status - Cancel - Exit");
@@ -46,8 +39,10 @@ public class arcteryxWarrantyMenu {
                 System.out.println("Please provide contact information: Email");
                 String email = input.nextLine();
                 System.out.println("Please provide contact information: Phone");
-                int phone = input.nextInt();
+                String phone = input.nextLine();
                 r.addCustomerInformation(name, email, phone);
+
+
                 // could we add something to tell the user this is your customerID
                 System.out.println("Please type enter the number corresponding to the brand: 1:Arcteryx - 2:Veilance " +
                         "- " +
@@ -65,10 +60,10 @@ public class arcteryxWarrantyMenu {
                 //see if SQL output aa unique identifier for the user
             } else if (userInput.equals("Status")) {
                 //Look up status through the unique identifier OR through email
-                System.out.println("Please Type in WarrantyNo ");
+                System.out.println("Please Type in Warranty Number");
                 int warrantyNo = input.nextInt();
                 System.out.println(sr.getAllWarrantyInfoByWarrantyNo(warrantyNo));
-//                System.out.println(r.getAllWarrantyInfoByWarrantyNo(warrantyNo));
+////                System.out.println(r.getAllWarrantyInfoByWarrantyNo(warrantyNo));
             } else if (userInput.equals("Cancel")) {
                 //Look up status through the unique identifier OR through email AND DELETE IT
                 System.out.println("Please enter Warranty Number");

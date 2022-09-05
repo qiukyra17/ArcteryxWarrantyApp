@@ -27,7 +27,7 @@ public class RequestRepo {
                     "?)");
             statement.setString(1,ci.getName());
             statement.setString(2,ci.getEmail());
-            statement.setInt(3,ci.getPhone());
+            statement.setString(3,(ci.getPhone()));
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class RequestRepo {
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 CustomerInformation ci = new CustomerInformation(rs.getString("name"), rs.getString("email"),
-                        rs.getInt("phone"));
+                        rs.getString("phone"));
                 return ci;
             }
         } catch (SQLException e) {

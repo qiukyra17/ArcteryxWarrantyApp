@@ -4,6 +4,8 @@ import DAO.RequestRepo;
 import Model.CustomerInformation;
 import Model.WarrantyInformation;
 
+import java.math.BigInteger;
+
 public class Request {
     RequestRepo rr;
     Status s;
@@ -15,7 +17,7 @@ public class Request {
 
     ;
 
-    public void addCustomerInformation(String name, String email, int phone) {
+    public void addCustomerInformation(String name, String email, String phone) {
         CustomerInformation exisitingInformation = rr.getCustomerByEmail(email);
         if (exisitingInformation == null) {
             CustomerInformation newCustomerInformation = new CustomerInformation(name, email, phone);

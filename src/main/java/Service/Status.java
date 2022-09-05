@@ -1,17 +1,13 @@
 package Service;
 
-import DAO.RequestRepo;
 import DAO.StatusRepo;
-import Model.WarrantyInformation;
-
-import java.util.List;
 
 public class Status {
 
     //lets try to get warranty information back
     Request r;
     StatusRepo sr;
-    public List<WarrantyInformation> getAllWarrantyInfoByWarrantyNo(int warrantyNo) {
+    public String getAllWarrantyInfoByWarrantyNo(int warrantyNo) {
 
         return sr.getAllWarrantyInfoByWarrantyNo(warrantyNo);
 
