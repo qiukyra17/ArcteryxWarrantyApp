@@ -1,4 +1,5 @@
 import DAO.CancelRepo;
+import DAO.RequestRepo;
 import DAO.StatusRepo;
 import Service.Cancel;
 import Service.Request;
@@ -18,9 +19,10 @@ public class arcteryxWarrantyMenu {
 
         ReadFile rf = new ReadFile("src/main/resources/Welcome");
         rf.ReadFiletoMenu();
-        
+
         //need boolean to be sure the user wants to use or exit
         Request r = new Request();
+        RequestRepo rr = new RequestRepo();
         StatusRepo sr = new StatusRepo();
         CancelRepo cr = new CancelRepo();
 
@@ -42,36 +44,47 @@ public class arcteryxWarrantyMenu {
                 String phone = input.nextLine();
                 r.addCustomerInformation(name, email, phone);
 
-
                 // could we add something to tell the user this is your customerID
+
                 System.out.println("Please type enter the number corresponding to the brand: 1:Arcteryx - 2:Veilance " +
                         "- " +
                         "3:System_A");
                 int brandID = input.nextInt();
-                System.out.println("Please provide your: Customer ID");
-                int customerID = input.nextInt();
+//                System.out.println("Please provide your: Customer ID");
+//                int customerID = input.nextInt();
+                int customerID = rr.getCustomerIdByEmail(email);
                 System.out.println("What type of product is it? Example: Jacket");
                 input = new Scanner(System.in);
                 String productType = input.nextLine();
                 System.out.println("What is the issue? Example: Hem of Jacket is starting to delaminate");
                 String productIssue = input.nextLine();
-
                 r.addWarrantyInformation(customerID, brandID, productType, productIssue, "New");
-                //see if SQL output aa unique identifier for the user
+                //This is your Warranty Number:
+                int warrantyNo = rr.getWarrantyIDFromWarrantyInfo(customerID, brandID, productType, productIssue, "New");
+                System.out.println("Your Warranty Number: " + warrantyNo);
+
+
             } else if (userInput.equals("Status")) {
                 //Look up status through the unique identifier OR through email
                 System.out.println("Please Type in Warranty Number");
                 int warrantyNo = input.nextInt();
                 System.out.println(sr.getAllWarrantyInfoByWarrantyNo(warrantyNo));
-////                System.out.println(r.getAllWarrantyInfoByWarrantyNo(warrantyNo));
             } else if (userInput.equals("Cancel")) {
                 //Look up status through the unique identifier OR through email AND DELETE IT
                 System.out.println("Please enter Warranty Number");
                 int warrantyNo = input.nextInt();
                 cr.deleteWarrantyRequestByWarrantyNo(warrantyNo);
-            }
 
+            }
         }
+
     }
 }
+
+/*
+                boolean noWarranty = true;
+                if (noWarranty) {
+                    System.out.println("There is no warranty by that warranty number");
+                } else
+ */
 

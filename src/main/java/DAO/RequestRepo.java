@@ -2,43 +2,39 @@ package DAO;
 
 import Model.CustomerInformation;
 import Model.WarrantyInformation;
-import Service.Request;
 import Util.ConnectionUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class RequestRepo {
 
     Connection conn = ConnectionUtil.getConnection();
 
-    // function to add aka INSERT
-
-    public void addCustomerInformation (CustomerInformation ci){
-        try{
+    public void addCustomerInformation(CustomerInformation ci) {
+        try {
             PreparedStatement statement = conn.prepareStatement("insert into CustomerInformation(name, email, phone) " +
                     "values " +
                     "(?," +
                     "?," +
                     "?)");
-            statement.setString(1,ci.getName());
-            statement.setString(2,ci.getEmail());
-            statement.setString(3,(ci.getPhone()));
+            statement.setString(1, ci.getName());
+            statement.setString(2, ci.getEmail());
+            statement.setString(3, (ci.getPhone()));
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public CustomerInformation getCustomerByEmail(String email){
-        try{
+
+    public CustomerInformation getCustomerByEmail(String email) {
+        try {
             PreparedStatement statement = conn.prepareStatement("select * from CustomerInformation where email = ?");
-            statement.setString(1,email);
+            statement.setString(1, email);
             ResultSet rs = statement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 CustomerInformation ci = new CustomerInformation(rs.getString("name"), rs.getString("email"),
                         rs.getString("phone"));
                 return ci;
@@ -47,6 +43,23 @@ public class RequestRepo {
             e.printStackTrace();
         }
         return null;
+    }
+
+    //Retrieve CustomerID and Auto Insert
+
+    public int getCustomerIdByEmail(String email) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT ID from customerinformation WHERE Email = ?");
+            statement.setString(1, email);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                int customerID = rs.getInt("ID");
+                return customerID;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public void addWarrantyInformation(WarrantyInformation wi) {
@@ -65,39 +78,27 @@ public class RequestRepo {
 
     }
 
-    public WarrantyInformation getWarrantyByCustomerID(int customerID) {
+    public int getWarrantyIDFromWarrantyInfo(int customerID, int brandID, String productType, String productIssue,
+                                             String status) {
         try {
-            PreparedStatement statement = conn.prepareStatement("select * from WarrantyInformation where customerID " +
-                    "=?");
+            PreparedStatement statement =
+                    conn.prepareStatement("SELECT warrantyID FROM warrantyinformation WHERE customerID = ? AND " +
+                            "brandID = ? AND productType = ? AND productIssue =? AND status =?");
             statement.setInt(1, customerID);
+            statement.setInt(2, brandID);
+            statement.setString(3, productType);
+            statement.setString(4, productIssue);
+            statement.setString(5, status);
             ResultSet rs = statement.executeQuery();
-            while (rs.next()){
-                WarrantyInformation wi = new WarrantyInformation(rs.getInt("customerID"),rs.getInt("brandID"),
-                        rs.getString("productType"),rs.getString("productIssue"),rs.getString("status"));
-                return wi;
+            while (rs.next()) {
+                int warrantyID = rs.getInt("warrantyID");
+                return warrantyID;
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return 0;
     }
-
-//    public List<WarrantyInformation> getAllWarrantyInfoByWarrantyNo(int warrantyNo) {
-//        List<WarrantyInformation> WarrantyInfo = new ArrayList<>();
-//        try{
-//            PreparedStatement statement = conn.prepareStatement("Select* from warrantyinformation where warrantyID=?");
-//            statement.setInt(1,warrantyNo);
-//            ResultSet rs = statement.executeQuery();
-//            while(rs.next()){
-//                WarrantyInformation loadWarranty = new WarrantyInformation(rs.getInt("customerID"),rs.getInt("brandID"),rs.getString("productType"),rs.getString("productIssue"));
-//                WarrantyInfo.add(loadWarranty);
-//            }
-//        } catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//        if (WarrantyInfo.size()==0){
-//            return null;
-//        } else return WarrantyInfo;
-//    }
-
 }
+

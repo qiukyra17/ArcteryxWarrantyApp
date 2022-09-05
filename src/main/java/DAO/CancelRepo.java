@@ -12,7 +12,6 @@ import java.util.List;
 
 public class CancelRepo {
     Connection conn = ConnectionUtil.getConnection();
-    StatusRepo sr;
 
     //instructions to Cancel your Request
     public void deleteWarrantyRequestByWarrantyNo(int warrantyNo) {
@@ -25,6 +24,6 @@ public class CancelRepo {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //return null;
+        ;
     }
 }
