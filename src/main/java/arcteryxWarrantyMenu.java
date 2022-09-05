@@ -1,16 +1,13 @@
-import DAO.CancelRepo;
 import DAO.RequestRepo;
-import DAO.StatusRepo;
 import Service.Cancel;
 import Service.Request;
 import Service.Status;
 
 import java.io.FileNotFoundException;
-import java.math.BigInteger;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 public class arcteryxWarrantyMenu {
+
     /*
     In this app users will be able to request, check status, and/or cancel their request
      */
@@ -50,10 +47,8 @@ public class arcteryxWarrantyMenu {
                         "- " +
                         "3:System_A");
                 int brandID = input.nextInt();
-//                System.out.println("Please provide your: Customer ID");
-//                int customerID = input.nextInt();
                 int customerID = r.getCustomerIdByEmail(email);
-                System.out.println("What type of product is it? Example: Jacket");
+                System.out.println("What type of product is it? Example: Men's Beta AR Jacket");
                 input = new Scanner(System.in);
                 String productType = input.nextLine();
                 System.out.println("What is the issue? Example: Hem of Jacket is starting to delaminate");
