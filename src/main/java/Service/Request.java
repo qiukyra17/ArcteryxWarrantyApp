@@ -6,6 +6,7 @@ import Model.WarrantyInformation;
 
 public class Request {
     RequestRepo rr;
+
     public Request() {
         rr = new RequestRepo();
     }
@@ -28,5 +29,17 @@ public class Request {
         rr.addWarrantyInformation(newWarrantyInformation);
         return newWarrantyInformation;
 
-    }}
+    }
+
+    public int getCustomerIdByEmail(String String) {
+        return rr.getCustomerIdByEmail(String);
+    }
+
+    public int getWarrantyIDFromWarrantyInfo(int customerID, int brandID, String productType, String productIssue,
+                                             String status) {
+        return rr.getWarrantyIDFromWarrantyInfo(customerID, brandID, productType, productIssue, status);
+    }
+}
+
+
 

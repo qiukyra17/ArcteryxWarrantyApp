@@ -24,6 +24,6 @@ public class CancelRepo {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        ;
+
     }
 }

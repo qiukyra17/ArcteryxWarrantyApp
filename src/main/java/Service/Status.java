@@ -7,6 +7,10 @@ public class Status {
     //lets try to get warranty information back
     StatusRepo sr;
 
+    public Status(){
+        sr = new StatusRepo();
+    }
+
     public String getAllWarrantyInfoByWarrantyNo(int warrantyNo) {
         return sr.getAllWarrantyInfoByWarrantyNo(warrantyNo);
     }

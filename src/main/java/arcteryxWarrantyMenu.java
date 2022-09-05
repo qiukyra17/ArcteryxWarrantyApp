@@ -23,8 +23,8 @@ public class arcteryxWarrantyMenu {
         //need boolean to be sure the user wants to use or exit
         Request r = new Request();
         RequestRepo rr = new RequestRepo();
-        StatusRepo sr = new StatusRepo();
-        CancelRepo cr = new CancelRepo();
+        Status s = new Status();
+        Cancel c = new Cancel();
 
         boolean usingApp = true;
         while (usingApp) {
@@ -52,15 +52,17 @@ public class arcteryxWarrantyMenu {
                 int brandID = input.nextInt();
 //                System.out.println("Please provide your: Customer ID");
 //                int customerID = input.nextInt();
-                int customerID = rr.getCustomerIdByEmail(email);
+                int customerID = r.getCustomerIdByEmail(email);
                 System.out.println("What type of product is it? Example: Jacket");
                 input = new Scanner(System.in);
                 String productType = input.nextLine();
                 System.out.println("What is the issue? Example: Hem of Jacket is starting to delaminate");
                 String productIssue = input.nextLine();
-                r.addWarrantyInformation(customerID, brandID, productType, productIssue, "New");
+                String status = "New";
+                r.addWarrantyInformation(customerID, brandID, productType, productIssue, status);
                 //This is your Warranty Number:
-                int warrantyNo = rr.getWarrantyIDFromWarrantyInfo(customerID, brandID, productType, productIssue, "New");
+                int warrantyNo = r.getWarrantyIDFromWarrantyInfo(customerID, brandID, productType, productIssue,
+                        status);
                 System.out.println("Your Warranty Number: " + warrantyNo);
 
 
@@ -68,23 +70,18 @@ public class arcteryxWarrantyMenu {
                 //Look up status through the unique identifier OR through email
                 System.out.println("Please Type in Warranty Number");
                 int warrantyNo = input.nextInt();
-                System.out.println(sr.getAllWarrantyInfoByWarrantyNo(warrantyNo));
+                if (s.getAllWarrantyInfoByWarrantyNo(warrantyNo) == null) {
+                    System.out.println("This warranty does not exist");
+                } else
+                    System.out.println(s.getAllWarrantyInfoByWarrantyNo(warrantyNo));
             } else if (userInput.equals("Cancel")) {
                 //Look up status through the unique identifier OR through email AND DELETE IT
                 System.out.println("Please enter Warranty Number");
                 int warrantyNo = input.nextInt();
-                cr.deleteWarrantyRequestByWarrantyNo(warrantyNo);
-
+                c.deleteWarrantyInformation(warrantyNo);
             }
         }
 
     }
 }
-
-/*
-                boolean noWarranty = true;
-                if (noWarranty) {
-                    System.out.println("There is no warranty by that warranty number");
-                } else
- */
 
