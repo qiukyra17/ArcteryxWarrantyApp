@@ -31,7 +31,7 @@ public class arcteryxWarrantyMenu {
         boolean usingApp = true;
         while (usingApp) {
             Scanner input = new Scanner(System.in);
-            System.out.println("Type Option for Warranty: Request - Status - Cancel - Exit");
+            System.out.println("Type Option for Warranty: Request - Status - Cancel - Update - Exit");
             String userInput = input.nextLine();
             if (userInput.equals("Exit")) {
                 usingApp = false;
@@ -51,10 +51,9 @@ public class arcteryxWarrantyMenu {
                 int brandID = input.nextInt();
                 int customerID = r.getCustomerIdByEmail(email);
                 System.out.println("Name of Product/Product Type - Ex: Men's Beta AR Jacket");
-//
-                String productType = input.nextLine();
+                String productType = new Scanner(System.in).nextLine();
                 System.out.println("What is the issue? - Ex: Hem of Jacket is starting to delaminate");
-                String productIssue = input.nextLine();
+                String productIssue = new Scanner(System.in).nextLine();
                 String status = "New";
                 r.addWarrantyInformation(customerID, brandID, productType, productIssue, status);
                 //This is your Warranty Number:
@@ -75,8 +74,7 @@ public class arcteryxWarrantyMenu {
                 System.out.println("Please Type in Warranty Number");
                 int warrantyNo = input.nextInt();
                 System.out.println("Please Type in Status Change");
-                input = new Scanner(System.in);
-                String status = input.nextLine();
+                String status = new Scanner(System.in).nextLine();
                 u.updateWarrantyInformation(status,warrantyNo);
             }
             else if (userInput.equals("Cancel")) {
