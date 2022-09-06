@@ -1,14 +1,16 @@
 package Service;
 
 import DAO.StatusRepo;
+import org.apache.log4j.Logger;
 
 public class Status {
 
-    //lets try to get warranty information back
     StatusRepo sr;
 
     public Status(){
         sr = new StatusRepo();
+        Logger logger = Logger.getLogger(Status.class);
+        logger.info("Status Search");
     }
 
     public String getAllWarrantyInfoByWarrantyNo(int warrantyNo) {

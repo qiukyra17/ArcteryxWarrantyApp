@@ -3,12 +3,15 @@ package Service;
 import DAO.RequestRepo;
 import Model.CustomerInformation;
 import Model.WarrantyInformation;
+import org.apache.log4j.Logger;
 
 public class Request {
     RequestRepo rr;
 
     public Request() {
         rr = new RequestRepo();
+        Logger logger = Logger.getLogger(Request.class);
+        logger.info("New Warranty Created");
     }
 
     public void addCustomerInformation(String name, String email, String phone) {

@@ -1,4 +1,3 @@
-import DAO.RequestRepo;
 import Service.Cancel;
 import Service.Request;
 import Service.Status;
@@ -10,15 +9,11 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class arcteryxWarrantyMenu {
-
-    /*
-    In this app users will be able to request, check status, and/or cancel their request
-     */
-
+    //In this app users will be able to request, check status, and/or cancel their request
     public static void main(String[] args) throws FileNotFoundException {
 
         Logger logger = Logger.getLogger(arcteryxWarrantyMenu.class);
-        logger.info("info text");
+        logger.info("App Started");
 
         ReadFile rf = new ReadFile("src/main/resources/Welcome");
         rf.ReadFiletoMenu();
@@ -35,6 +30,7 @@ public class arcteryxWarrantyMenu {
             String userInput = input.nextLine();
             if (userInput.equals("Exit")) {
                 usingApp = false;
+                logger.info("App Exited");
             }
             else if (userInput.equals("Request")) {
                 System.out.println("Please type Name");
@@ -46,8 +42,7 @@ public class arcteryxWarrantyMenu {
                 r.addCustomerInformation(name, email, phone);
 
                 System.out.println("Please type enter the number corresponding to the brand: 1:Arcteryx - 2:Veilance " +
-                        "- " +
-                        "3:System_A");
+                        "- 3:System_A");
                 int brandID = input.nextInt();
                 int customerID = r.getCustomerIdByEmail(email);
                 System.out.println("Name of Product/Product Type - Ex: Men's Beta AR Jacket");
@@ -56,13 +51,11 @@ public class arcteryxWarrantyMenu {
                 String productIssue = new Scanner(System.in).nextLine();
                 String status = "New";
                 r.addWarrantyInformation(customerID, brandID, productType, productIssue, status);
-                //This is your Warranty Number:
                 int warrantyNo = r.getWarrantyIDFromWarrantyInfo(customerID, brandID, productType, productIssue,
                         status);
                 System.out.println("Your Warranty Number: " + warrantyNo);
 
             } else if (userInput.equals("Status")) {
-                //Look up status through the unique identifier OR through email
                 System.out.println("Please Type in Warranty Number");
                 int warrantyNo = input.nextInt();
                 if (s.getAllWarrantyInfoByWarrantyNo(warrantyNo) == null) {
@@ -78,7 +71,6 @@ public class arcteryxWarrantyMenu {
                 u.updateWarrantyInformation(status,warrantyNo);
             }
             else if (userInput.equals("Cancel")) {
-                //Look up status through the unique identifier OR through email AND DELETE IT
                 System.out.println("Please enter Warranty Number");
                 int warrantyNo = input.nextInt();
                 c.deleteWarrantyInformation(warrantyNo);
