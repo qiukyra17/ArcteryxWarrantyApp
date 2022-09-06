@@ -2,6 +2,8 @@ import DAO.RequestRepo;
 import Service.Cancel;
 import Service.Request;
 import Service.Status;
+import org.apache.log4j.Logger;
+
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -14,44 +16,42 @@ public class arcteryxWarrantyMenu {
 
     public static void main(String[] args) throws FileNotFoundException {
 
+        Logger logger = Logger.getLogger(arcteryxWarrantyMenu.class);
+        logger.info("info text");
+
         ReadFile rf = new ReadFile("src/main/resources/Welcome");
         rf.ReadFiletoMenu();
 
-        //need boolean to be sure the user wants to use or exit
         Request r = new Request();
-        RequestRepo rr = new RequestRepo();
         Status s = new Status();
         Cancel c = new Cancel();
 
         boolean usingApp = true;
         while (usingApp) {
             Scanner input = new Scanner(System.in);
-            System.out.println("Select Option for Warranty: Request - Status - Cancel - Exit");
+            System.out.println("Type Option for Warranty: Request - Status - Cancel - Exit");
             String userInput = input.nextLine();
             if (userInput.equals("Exit")) {
                 usingApp = false;
-            } else if (userInput.equals("Request")) {
-                //ADD - new request - ContactInfo - Brand - ProductInfo
-                //All input should INSERT into your TABLE
-                System.out.println("Please provide contact information: Name");
+            }
+            else if (userInput.equals("Request")) {
+                System.out.println("Please type Name");
                 String name = input.nextLine();
-                System.out.println("Please provide contact information: Email");
+                System.out.println("Please type Email");
                 String email = input.nextLine();
-                System.out.println("Please provide contact information: Phone");
+                System.out.println("Please type Phone");
                 String phone = input.nextLine();
                 r.addCustomerInformation(name, email, phone);
-
-                // could we add something to tell the user this is your customerID
 
                 System.out.println("Please type enter the number corresponding to the brand: 1:Arcteryx - 2:Veilance " +
                         "- " +
                         "3:System_A");
                 int brandID = input.nextInt();
                 int customerID = r.getCustomerIdByEmail(email);
-                System.out.println("What type of product is it? Example: Men's Beta AR Jacket");
-                input = new Scanner(System.in);
+                System.out.println("Name of Product/Product Type - Ex: Men's Beta AR Jacket");
+//                input = new Scanner(System.in);
                 String productType = input.nextLine();
-                System.out.println("What is the issue? Example: Hem of Jacket is starting to delaminate");
+                System.out.println("What is the issue? - Ex: Hem of Jacket is starting to delaminate");
                 String productIssue = input.nextLine();
                 String status = "New";
                 r.addWarrantyInformation(customerID, brandID, productType, productIssue, status);
@@ -59,7 +59,6 @@ public class arcteryxWarrantyMenu {
                 int warrantyNo = r.getWarrantyIDFromWarrantyInfo(customerID, brandID, productType, productIssue,
                         status);
                 System.out.println("Your Warranty Number: " + warrantyNo);
-
 
             } else if (userInput.equals("Status")) {
                 //Look up status through the unique identifier OR through email
