@@ -2,6 +2,7 @@ import DAO.RequestRepo;
 import Service.Cancel;
 import Service.Request;
 import Service.Status;
+import Service.Update;
 import org.apache.log4j.Logger;
 
 
@@ -24,6 +25,7 @@ public class arcteryxWarrantyMenu {
 
         Request r = new Request();
         Status s = new Status();
+        Update u = new Update();
         Cancel c = new Cancel();
 
         boolean usingApp = true;
@@ -49,7 +51,7 @@ public class arcteryxWarrantyMenu {
                 int brandID = input.nextInt();
                 int customerID = r.getCustomerIdByEmail(email);
                 System.out.println("Name of Product/Product Type - Ex: Men's Beta AR Jacket");
-//                input = new Scanner(System.in);
+//
                 String productType = input.nextLine();
                 System.out.println("What is the issue? - Ex: Hem of Jacket is starting to delaminate");
                 String productIssue = input.nextLine();
@@ -68,7 +70,16 @@ public class arcteryxWarrantyMenu {
                     System.out.println("This warranty does not exist");
                 } else
                     System.out.println(s.getAllWarrantyInfoByWarrantyNo(warrantyNo));
-            } else if (userInput.equals("Cancel")) {
+            }
+            else if(userInput.equals("Update")){
+                System.out.println("Please Type in Warranty Number");
+                int warrantyNo = input.nextInt();
+                System.out.println("Please Type in Status Change");
+                input = new Scanner(System.in);
+                String status = input.nextLine();
+                u.updateWarrantyInformation(status,warrantyNo);
+            }
+            else if (userInput.equals("Cancel")) {
                 //Look up status through the unique identifier OR through email AND DELETE IT
                 System.out.println("Please enter Warranty Number");
                 int warrantyNo = input.nextInt();
